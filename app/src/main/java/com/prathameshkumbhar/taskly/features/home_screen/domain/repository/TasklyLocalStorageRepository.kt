@@ -6,9 +6,9 @@ import org.mongodb.kbson.ObjectId
 
 interface TasklyLocalStorageRepository {
 
-    fun getData(): Flow<List<Note>>
-    suspend fun insertNote(person: Note)
-    suspend fun updateNote(person: Note)
+    fun getAllNotes(): Flow<List<Note>>
+    suspend fun insertNote(note: Note)
+    suspend fun updateNote(note: Note)
     suspend fun deleteNote(id: ObjectId)
 
 }

@@ -10,18 +10,18 @@ import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
 
 class TasklyLocalStorageRepoImpl  (val realm: Realm) : TasklyLocalStorageRepository{
-    override fun getData(): Flow<List<Note>> {
+    override fun getAllNotes(): Flow<List<Note>> {
         return realm.query<Note>().asFlow().map { it.list }
     }
 
-    override suspend fun insertNote(person: Note) {
-        realm.write { copyToRealm(person) }
+    override suspend fun insertNote(note: Note) {
+        realm.write { copyToRealm(note) }
     }
 
-    override suspend fun updateNote(person: Note) {
+    override suspend fun updateNote(note: Note) {
         realm.write {
-            val queriedNote = query<Note>(query = "_id == $0", person._id).first().find()
-            queriedNote?.noteTitle = person.noteTitle
+            val queriedNote = query<Note>(query = "_id == $0", note._id).first().find()
+            queriedNote?.noteTitle = note.noteTitle
         }
     }
 
