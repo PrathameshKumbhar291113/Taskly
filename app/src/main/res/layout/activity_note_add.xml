@@ -4,6 +4,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.task_add.TaskAddActivity">
+    android:background="@android:color/transparent"
+    tools:context=".features.task_add.NoteAddActivity">
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.prathameshkumbhar.taskly.common
+package com.prathameshkumbhar.taskly.common.helper
 
 sealed class NetworkResult <T>(
     val data: T? = null, val message: String? = null,

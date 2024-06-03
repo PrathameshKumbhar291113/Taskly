@@ -1,6 +1,6 @@
 package com.prathameshkumbhar.taskly.features.home_screen.domain.usecase
 
-import com.prathameshkumbhar.taskly.common.NetworkResult
+import com.prathameshkumbhar.taskly.common.helper.NetworkResult
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
 import com.prathameshkumbhar.taskly.utils.models.Note
 import kotlinx.coroutines.Dispatchers

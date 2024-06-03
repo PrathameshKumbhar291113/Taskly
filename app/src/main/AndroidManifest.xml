@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Taskly"
         tools:targetApi="31">
         <activity
-            android:name=".features.task_add.TaskAddActivity"
+            android:name=".features.task_add.NoteAddActivity"
             android:exported="false" />
         <activity
             android:name=".features.home_screen.presentation.screen.HomeActivity"

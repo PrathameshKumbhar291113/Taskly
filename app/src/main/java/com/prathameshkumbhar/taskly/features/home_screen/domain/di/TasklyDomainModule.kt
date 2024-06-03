@@ -2,6 +2,7 @@ package com.prathameshkumbhar.taskly.features.home_screen.domain.di
 
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
 import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.GetAllNotesLocallyUseCase
+import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.InsertNoteLocallyUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +21,8 @@ object TasklyDomainModule {
 
     @Singleton
     @Provides
-    fun provideInsertNoteLocally(tasklyLocalStorageRepository: TasklyLocalStorageRepository): GetAllNotesLocallyUseCase {
-        return GetAllNotesLocallyUseCase(tasklyLocalStorageRepository)
+    fun provideInsertNoteLocally(tasklyLocalStorageRepository: TasklyLocalStorageRepository): InsertNoteLocallyUseCase {
+        return InsertNoteLocallyUseCase(tasklyLocalStorageRepository)
     }
 
 }
