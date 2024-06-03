@@ -13,7 +13,16 @@ class NoteAddActivity : AppCompatActivity() {
         binding = ActivityNoteAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUi()
+        setupObservers()
 
+    }
+
+    private fun setupObservers() {
+
+    }
+
+    private fun setupUi() {
 
     }
 }

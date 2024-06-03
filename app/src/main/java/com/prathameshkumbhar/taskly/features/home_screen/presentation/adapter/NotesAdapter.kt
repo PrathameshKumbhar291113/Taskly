@@ -65,10 +65,6 @@ class NotesAdapter(
                 listeners.onNoteClicked(noteList[holder.adapterPosition])
             }
 
-            binding.noteCard.setOnLongClickListener {
-                listeners.onNoteLongClicked(noteList[holder.adapterPosition], binding.noteCard)
-                true
-            }
         }
     }
 }
