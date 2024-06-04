@@ -2,10 +2,9 @@ package com.prathameshkumbhar.taskly.features.home_screen.presentation.screen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.prathameshkumbhar.taskly.R
 import com.prathameshkumbhar.taskly.databinding.ActivityHomeBinding
+import com.prathameshkumbhar.taskly.utils.statusBarColor
 import dagger.hilt.android.AndroidEntryPoint
-import splitties.resources.color
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -20,6 +19,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        window.statusBarColor = color(R.color.primary_pink)
+        statusBarColor(this@HomeActivity)
     }
 }

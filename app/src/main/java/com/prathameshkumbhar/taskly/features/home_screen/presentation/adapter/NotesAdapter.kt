@@ -5,14 +5,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.prathameshkumbhar.taskly.common.helper.OnNoteClickListeners
 import com.prathameshkumbhar.taskly.databinding.ItemNoteBinding
 import com.prathameshkumbhar.taskly.utils.models.Note
 import com.prathameshkumbhar.taskly.utils.randomColors
+import org.mongodb.kbson.ObjectId
 
 class NotesAdapter(
     private val context: Context,
-    val listeners: OnNoteClickListeners
+    val onClickUpdate: (Note) -> Unit,
+    val onClickDelete: (ObjectId) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
     private var noteList =  ArrayList<Note>()
@@ -30,17 +31,7 @@ class NotesAdapter(
         holder.bindNote(noteList[position], holder)
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filterList(searchQuery: String){
-        noteList.clear()
-        fullNoteList.forEach{noteItem ->
-            if (noteItem.noteTitle.lowercase().contains(searchQuery.lowercase()) || noteItem.noteDescription.lowercase().contains(searchQuery.lowercase())){
-                noteList.add(noteItem)
-            }
-        }
-        notifyDataSetChanged()
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newNoteList: List<Note>){
         noteList.clear()
         noteList.addAll(newNoteList)
@@ -61,8 +52,12 @@ class NotesAdapter(
             binding.noteSavedDate.isSelected = true
             binding.noteCard.setCardBackgroundColor(context.resources.getColor(randomColors(),null))
 
-            binding.noteCard.setOnClickListener {
-                listeners.onNoteClicked(noteList[holder.adapterPosition])
+            binding.editNote.setOnClickListener {
+                onClickUpdate(note)
+            }
+
+            binding.deleteNote.setOnClickListener {
+                onClickDelete(note._id)
             }
 
         }

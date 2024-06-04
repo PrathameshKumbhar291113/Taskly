@@ -4,4 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_pink">#E26977</color>
     <color name="primary_blue">#2C7BE4</color>
+    <color name="primary_yellow">#E4C52C</color>
+    <color name="primary_orange">#E4822C</color>
+    <color name="primary_red">#E42C57</color>
+    <color name="primary_purple">#E42CD2</color>
+    <color name="primary_violet">#9D2CE4</color>
+    <color name="primary_midnight">#5D2CE4</color>
 </resources>

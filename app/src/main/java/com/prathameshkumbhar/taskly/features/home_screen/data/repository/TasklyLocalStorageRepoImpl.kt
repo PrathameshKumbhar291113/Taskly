@@ -22,6 +22,8 @@ class TasklyLocalStorageRepoImpl  (val realm: Realm) : TasklyLocalStorageReposit
         realm.write {
             val queriedNote = query<Note>(query = "_id == $0", note._id).first().find()
             queriedNote?.noteTitle = note.noteTitle
+            queriedNote?.noteDescription = note.noteDescription
+            queriedNote?.noteCreatedOn = note.noteCreatedOn
         }
     }
 
