@@ -1,39 +1,67 @@
 package com.prathameshkumbhar.taskly.features.home_screen.data.repository
 
 import android.util.Log
-import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.models.NoteTodos
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mongodb.kbson.ObjectId
 
 class TasklyLocalStorageRepoImpl  (val realm: Realm) : TasklyLocalStorageRepository{
-    override fun getAllNotes(): Flow<List<Note>> {
-        return realm.query<Note>().asFlow().map { it.list }
+    override fun getAllNotes(): Flow<List<NoteTodos>> {
+        return realm.query<NoteTodos>().asFlow().map { it.list.asReversed() }
     }
 
-    override suspend fun insertNote(note: Note) {
+    override suspend fun insertNote(note: NoteTodos) {
         realm.write { copyToRealm(note) }
     }
 
-    override suspend fun updateNote(note: Note) {
+   /* override suspend fun updateNote(note: NoteTodos) {
         realm.write {
-            val queriedNote = query<Note>(query = "_id == $0", note._id).first().find()
-            queriedNote?.noteTitle = note.noteTitle
-            queriedNote?.noteDescription = note.noteDescription
-            queriedNote?.noteCreatedOn = note.noteCreatedOn
+            val queriedNote = query<NoteTodos>(query = "id == $0", note.id).first().find()
+            queriedNote?.todo = note.todo
+            queriedNote?.userId = note.userId
+            queriedNote?.completed = note.completed
+        }
+    }*/
+
+    override suspend fun updateNote(note: NoteTodos) {
+        realm.write {
+            val queriedNote = query<NoteTodos>(query = "id == $0", note.id).first().find()
+            if (queriedNote != null) {
+                queriedNote.userId = note.userId
+                queriedNote.todo = note.todo
+                queriedNote.completed = note.completed
+            }else{
+                Log.e("pratham", "updateNote: qureid note is null", )
+            }
+
         }
     }
 
-    override suspend fun deleteNote(id: ObjectId) {
+    override suspend fun deleteNote(id: Int) {
         realm.write {
-            val note = query<Note>(query = "_id == $0", id).first().find()
+            val note = query<NoteTodos>("id == $0", id).first().find()
             try {
                 note?.let { delete(it) }
             } catch (e: Exception) {
-                Log.e("MongoRepositoryImpl", "${e.message}")
+                Log.e("TasklyLocalStorageRepoImpl", "${e.message}")
+            }
+        }
+    }
+
+    override suspend fun insertOrUpdateNote(note: NoteTodos) {
+        realm.write {
+            val existingNote = query<NoteTodos>("id == $0", note.id).first().find()
+            if (existingNote == null) {
+                copyToRealm(note)
+            } else {
+                existingNote.apply {
+                    completed = note.completed
+                    todo = note.todo
+                    userId = note.userId
+                }
             }
         }
     }

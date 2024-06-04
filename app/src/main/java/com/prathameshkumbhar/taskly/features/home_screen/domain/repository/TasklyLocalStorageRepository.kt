@@ -1,14 +1,14 @@
 package com.prathameshkumbhar.taskly.features.home_screen.domain.repository
 
-import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.models.NoteTodos
 import kotlinx.coroutines.flow.Flow
-import org.mongodb.kbson.ObjectId
 
 interface TasklyLocalStorageRepository {
 
-    fun getAllNotes(): Flow<List<Note>>
-    suspend fun insertNote(note: Note)
-    suspend fun updateNote(note: Note)
-    suspend fun deleteNote(id: ObjectId)
+    fun getAllNotes(): Flow<List<NoteTodos>>
+    suspend fun insertNote(note: NoteTodos)
+    suspend fun updateNote(note: NoteTodos)
+    suspend fun deleteNote(id: Int)
+    suspend fun insertOrUpdateNote(note: NoteTodos)
 
 }

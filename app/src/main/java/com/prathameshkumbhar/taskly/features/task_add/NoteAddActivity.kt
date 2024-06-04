@@ -4,25 +4,19 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.prathameshkumbhar.taskly.database.NoteParcelable
-import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.NoteTodosParcelable
 import com.prathameshkumbhar.taskly.databinding.ActivityNoteAddBinding
 import com.prathameshkumbhar.taskly.features.task_add.viewmodel.NoteAddViewModel
 import com.prathameshkumbhar.taskly.utils.TasklyConstants
 import com.prathameshkumbhar.taskly.utils.statusBarColor
-import com.prathameshkumbhar.taskly.utils.toNote
+import com.prathameshkumbhar.taskly.utils.toNoteTodo
+import com.prathameshkumbhar.taskly.utils.toParcelableNoteTodos
 import dagger.hilt.android.AndroidEntryPoint
-import org.mongodb.kbson.ObjectId
-import java.text.SimpleDateFormat
-import java.util.Date
 
 @AndroidEntryPoint
 class NoteAddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteAddBinding
     private val noteAddViewModel: NoteAddViewModel by viewModels()
-    private lateinit var note: Note
-    private  lateinit var oldId: ObjectId
-    private var isUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +31,23 @@ class NoteAddActivity : AppCompatActivity() {
     private fun setupObservers() {
 
         try {
-            intent.getParcelableExtra<NoteParcelable>(TasklyConstants.CURRENT_NOTE)?.toNote()?.apply {
-                oldId = _id
-                binding.noteTitleEditText.setText(noteTitle)
-                binding.noteDescriptionEditText.setText(noteDescription)
-                isUpdate = true
+            with(noteAddViewModel) {
+                intent.getParcelableExtra<NoteTodosParcelable>(TasklyConstants.CURRENT_NOTE)
+                    ?.toNoteTodo()?.let {
+                    setNoteValues(it.toParcelableNoteTodos(), isUpdate = true)
+                }
+
             }
-
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-
+        noteAddViewModel.todoValue.observe(this){
+            binding.noteDescriptionEditText.setText(it.toString())
+        }
+        noteAddViewModel.userIdValue.observe(this){
+            binding.noteTitleEditText.setText(it.toString())
+        }
     }
 
     private fun setupUi() {
@@ -60,18 +58,15 @@ class NoteAddActivity : AppCompatActivity() {
             if (!binding.noteTitleEditText.text.isNullOrBlank() || !binding.noteTitleEditText.text.isNullOrEmpty() ||
                 !binding.noteDescriptionEditText.text.isNullOrBlank() || !binding.noteDescriptionEditText.text.isNullOrEmpty()
             ) {
-                if (isUpdate) {
+                if (noteAddViewModel.isUpdate.value == true) {
                     noteAddViewModel.updateNotesLocally(
-                        oldId,
-                        binding.noteTitleEditText.text.toString(),
-                        binding.noteDescriptionEditText.text.toString(),
-                        SimpleDateFormat("dd MM yyyy HH:mm a").format(Date())
+                        binding.noteTitleEditText.text.toString().toInt(),
+                        binding.noteDescriptionEditText.text.toString()
                     )
                 } else {
                     noteAddViewModel.insertNotesLocally(
-                        binding.noteTitleEditText.text.toString(),
-                        binding.noteDescriptionEditText.text.toString(),
-                        SimpleDateFormat("dd MM yyyy HH:mm a").format(Date())
+                        binding.noteTitleEditText.text.toString().toInt(),
+                        binding.noteDescriptionEditText.text.toString()
                     )
                 }
                 finish()

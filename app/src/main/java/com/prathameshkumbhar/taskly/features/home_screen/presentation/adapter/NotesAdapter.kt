@@ -5,19 +5,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.models.NoteTodos
 import com.prathameshkumbhar.taskly.databinding.ItemNoteBinding
 import com.prathameshkumbhar.taskly.utils.randomColors
-import org.mongodb.kbson.ObjectId
 
 class NotesAdapter(
     private val context: Context,
-    val onClickUpdate: (Note) -> Unit,
-    val onClickDelete: (ObjectId) -> Unit
+    val onClickUpdate: (NoteTodos) -> Unit,
+    val onClickDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
-    private var noteList =  ArrayList<Note>()
-    private var fullNoteList =  ArrayList<Note>()
+    private var noteList =  ArrayList<NoteTodos>()
+    private var fullNoteList =  ArrayList<NoteTodos>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         return NotesViewHolder(
@@ -31,8 +30,7 @@ class NotesAdapter(
         holder.bindNote(noteList[position], holder)
 
     @SuppressLint("NotifyDataSetChanged")
-
-    fun updateList(newNoteList: List<Note>){
+    fun updateList(newNoteList: List<NoteTodos>){
         noteList.clear()
         noteList.addAll(newNoteList)
 
@@ -44,10 +42,10 @@ class NotesAdapter(
     inner class NotesViewHolder(
         private val binding: ItemNoteBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bindNote(note: Note, holder: NotesViewHolder) {
-            binding.noteTitle.text = note.noteTitle
-            binding.noteDetail.text = note.noteDescription
-            binding.noteSavedDate.text = note.noteCreatedOn
+        fun bindNote(note: NoteTodos, holder: NotesViewHolder) {
+            binding.noteTitle.text = note.userId.toString()
+            binding.noteDetail.text = note.todo
+            binding.noteSavedDate.text = note.id.toString()
             binding.noteTitle.isSelected = true
             binding.noteSavedDate.isSelected = true
             binding.noteCard.setCardBackgroundColor(context.resources.getColor(randomColors(),null))
@@ -57,7 +55,7 @@ class NotesAdapter(
             }
 
             binding.deleteNote.setOnClickListener {
-                onClickDelete(note._id)
+                onClickDelete(note.id)
             }
 
         }

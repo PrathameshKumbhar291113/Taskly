@@ -1,6 +1,7 @@
 package com.prathameshkumbhar.taskly
 
 import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.models.NoteTodos
 import com.prathameshkumbhar.taskly.network.ApiCommunicator
 import com.prathameshkumbhar.taskly.utils.TasklyConstants
 import dagger.Module
@@ -22,7 +23,8 @@ object TasklyApplicationModule {
     fun provideRealm(): Realm {
         val config = RealmConfiguration.Builder(
             schema = setOf(
-                Note::class
+                Note::class,
+                NoteTodos::class
             )
         )
             .compactOnLaunch()

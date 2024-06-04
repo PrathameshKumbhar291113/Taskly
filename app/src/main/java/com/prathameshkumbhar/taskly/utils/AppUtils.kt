@@ -1,9 +1,13 @@
 package com.prathameshkumbhar.taskly.utils
 
 import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import com.prathameshkumbhar.taskly.R
-import com.prathameshkumbhar.taskly.database.NoteParcelable
-import com.prathameshkumbhar.taskly.database.models.Note
+import com.prathameshkumbhar.taskly.database.NoteTodosParcelable
+import com.prathameshkumbhar.taskly.database.models.NoteTodos
+import com.prathameshkumbhar.taskly.network.models.GetAllNotesFromRemoteResponse
 import kotlin.random.Random
 
 fun randomColors(): Int{
@@ -28,20 +32,43 @@ fun statusBarColor(activity: Activity){
     activity.window.statusBarColor = activity.getColor(R.color.primary_pink)
 }
 
-fun Note.toParcelable(): NoteParcelable {
-    return NoteParcelable(
-        _id = this._id.toHexString(),
-        noteTitle = this.noteTitle,
-        noteDescription = this.noteDescription,
-        noteCreatedOn = this.noteCreatedOn
+fun NoteTodos.toParcelableNoteTodos(): NoteTodosParcelable {
+    return NoteTodosParcelable(
+        id = this@toParcelableNoteTodos.id,
+        completed = this@toParcelableNoteTodos.completed,
+        todo = this@toParcelableNoteTodos.todo,
+        userId = this@toParcelableNoteTodos.userId
     )
 }
 
-fun NoteParcelable.toNote(): Note {
-    return Note().apply {
-        _id = ObjectId(this@toNote._id)
-        noteTitle = this@toNote.noteTitle
-        noteDescription = this@toNote.noteDescription
-        noteCreatedOn = this@toNote.noteCreatedOn
+fun NoteTodosParcelable.toNoteTodo(): NoteTodos {
+    return NoteTodos().apply {
+            id = this@toNoteTodo.id
+            completed = this@toNoteTodo.completed
+            todo = this@toNoteTodo.todo
+            userId = this@toNoteTodo.userId
     }
+}
+
+fun convertToNoteTodos(response: GetAllNotesFromRemoteResponse): List<NoteTodos> {
+    return response.todos?.map { todo ->
+        NoteTodos().apply {
+            id = todo.id ?: 0
+            completed = todo.completed ?: false
+            this.todo = todo.todo ?: ""
+            userId = todo.userId ?: 0
+        }
+    } ?: emptyList()
+}
+
+
+fun isNetworkAvailable(context: Context): Boolean {
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork = connectivityManager.activeNetwork ?: return false
+    val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+    return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+}
+
+fun generateRandomNumber(): Int {
+    return Random.nextInt(1, 101)
 }

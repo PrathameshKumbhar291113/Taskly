@@ -5,6 +5,7 @@ import com.prathameshkumbhar.taskly.BuildConfig
 
 object TasklyConstants {
     const val CURRENT_NOTE = "current_note"
+    const val INSERT_NOTE = "insert_note"
     const val BASE_URL = BuildConfig.TASKLY_BASE_URL
     const val GET_ALL_NOTES_FROM_REMOTE = "/todos"
     const val POST_NOTE_TO_REMOTE = "/todos/add"
