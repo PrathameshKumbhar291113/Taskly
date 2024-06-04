@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.prathameshkumbhar.taskly.database.models.Note
 import com.prathameshkumbhar.taskly.databinding.FragmentNoteListBinding
 import com.prathameshkumbhar.taskly.features.home_screen.presentation.adapter.NotesAdapter
 import com.prathameshkumbhar.taskly.features.home_screen.presentation.viewmodel.NoteListViewModel
 import com.prathameshkumbhar.taskly.features.task_add.NoteAddActivity
 import com.prathameshkumbhar.taskly.utils.TasklyConstants
-import com.prathameshkumbhar.taskly.utils.models.Note
 import com.prathameshkumbhar.taskly.utils.toParcelable
 import dagger.hilt.android.AndroidEntryPoint
 import org.mongodb.kbson.ObjectId
@@ -54,6 +54,10 @@ class NoteListFragment : Fragment(){
             setupRecyclerView(it)
         }
 
+        noteListViewModel.noteListFromResponse.observe(viewLifecycleOwner){
+//            setupRecyclerView(it)
+        }
+
     }
 
     private fun passDataToAddNoteActivity(getContent: ActivityResultLauncher<Intent>) {
@@ -75,6 +79,13 @@ class NoteListFragment : Fragment(){
         binding.notesRecyclerView.adapter = notesAdapter
         notesAdapter.updateList(notes)
     }
+
+//    private fun setupRecyclerViewForRemote(notes: List<GetAllNotesFromRemoteResponse.Todo>) {
+//        notesAdapter = NotesAdapter(requireContext(), this::onClickUpdate, this::onClickDelete)
+//        binding.notesRecyclerView.setHasFixedSize(true)
+//        binding.notesRecyclerView.adapter = notesAdapter
+//        notesAdapter.updateList(notes)
+//    }
 
     private fun onClickUpdate(note: Note) {
         val intent: Intent = Intent(requireContext(), NoteAddActivity::class.java).apply {

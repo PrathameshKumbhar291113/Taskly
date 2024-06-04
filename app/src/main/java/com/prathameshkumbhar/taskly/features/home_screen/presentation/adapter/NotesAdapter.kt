@@ -5,8 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.prathameshkumbhar.taskly.database.models.Note
 import com.prathameshkumbhar.taskly.databinding.ItemNoteBinding
-import com.prathameshkumbhar.taskly.utils.models.Note
 import com.prathameshkumbhar.taskly.utils.randomColors
 import org.mongodb.kbson.ObjectId
 

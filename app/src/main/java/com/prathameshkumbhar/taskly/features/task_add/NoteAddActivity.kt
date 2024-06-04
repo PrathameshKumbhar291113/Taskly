@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.prathameshkumbhar.taskly.database.NoteParcelable
+import com.prathameshkumbhar.taskly.database.models.Note
 import com.prathameshkumbhar.taskly.databinding.ActivityNoteAddBinding
 import com.prathameshkumbhar.taskly.features.task_add.viewmodel.NoteAddViewModel
 import com.prathameshkumbhar.taskly.utils.TasklyConstants
-import com.prathameshkumbhar.taskly.utils.models.Note
-import com.prathameshkumbhar.taskly.utils.models.NoteParcelable
 import com.prathameshkumbhar.taskly.utils.statusBarColor
 import com.prathameshkumbhar.taskly.utils.toNote
 import dagger.hilt.android.AndroidEntryPoint

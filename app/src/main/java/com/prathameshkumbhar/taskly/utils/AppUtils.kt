@@ -2,9 +2,8 @@ package com.prathameshkumbhar.taskly.utils
 
 import android.app.Activity
 import com.prathameshkumbhar.taskly.R
-import com.prathameshkumbhar.taskly.utils.models.Note
-import com.prathameshkumbhar.taskly.utils.models.NoteParcelable
-import org.mongodb.kbson.ObjectId
+import com.prathameshkumbhar.taskly.database.NoteParcelable
+import com.prathameshkumbhar.taskly.database.models.Note
 import kotlin.random.Random
 
 fun randomColors(): Int{

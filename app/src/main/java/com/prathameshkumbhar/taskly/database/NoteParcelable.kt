@@ -1,4 +1,4 @@
-package com.prathameshkumbhar.taskly.utils.models
+package com.prathameshkumbhar.taskly.database
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

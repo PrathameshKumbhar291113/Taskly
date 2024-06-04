@@ -1,7 +1,8 @@
 package com.prathameshkumbhar.taskly.features.home_screen.domain.di
 
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
-import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.GetAllNotesLocallyUseCase
+import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyRemoteRepository
+import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.GetAllNotesRemotelyUseCase
 import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.InsertNoteLocallyUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,8 +16,8 @@ object TasklyDomainModule {
 
     @Singleton
     @Provides
-    fun provideGetAllNotesLocally(tasklyLocalStorageRepository: TasklyLocalStorageRepository): GetAllNotesLocallyUseCase {
-        return GetAllNotesLocallyUseCase(tasklyLocalStorageRepository)
+    fun provideGetAllNotesRemotely(tasklyRemoteRepository: TasklyRemoteRepository): GetAllNotesRemotelyUseCase {
+        return GetAllNotesRemotelyUseCase(tasklyRemoteRepository)
     }
 
     @Singleton

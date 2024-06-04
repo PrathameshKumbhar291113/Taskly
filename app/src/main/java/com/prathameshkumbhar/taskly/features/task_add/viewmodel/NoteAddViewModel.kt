@@ -2,8 +2,8 @@ package com.prathameshkumbhar.taskly.features.task_add.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.prathameshkumbhar.taskly.database.models.Note
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
-import com.prathameshkumbhar.taskly.utils.models.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId

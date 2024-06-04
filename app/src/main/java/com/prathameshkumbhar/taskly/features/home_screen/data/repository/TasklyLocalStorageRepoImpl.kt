@@ -1,8 +1,8 @@
 package com.prathameshkumbhar.taskly.features.home_screen.data.repository
 
 import android.util.Log
+import com.prathameshkumbhar.taskly.database.models.Note
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
-import com.prathameshkumbhar.taskly.utils.models.Note
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
