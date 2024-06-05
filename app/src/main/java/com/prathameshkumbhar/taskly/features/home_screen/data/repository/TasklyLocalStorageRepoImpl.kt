@@ -17,15 +17,6 @@ class TasklyLocalStorageRepoImpl  (val realm: Realm) : TasklyLocalStorageReposit
         realm.write { copyToRealm(note) }
     }
 
-   /* override suspend fun updateNote(note: NoteTodos) {
-        realm.write {
-            val queriedNote = query<NoteTodos>(query = "id == $0", note.id).first().find()
-            queriedNote?.todo = note.todo
-            queriedNote?.userId = note.userId
-            queriedNote?.completed = note.completed
-        }
-    }*/
-
     override suspend fun updateNote(note: NoteTodos) {
         realm.write {
             val queriedNote = query<NoteTodos>(query = "id == $0", note.id).first().find()

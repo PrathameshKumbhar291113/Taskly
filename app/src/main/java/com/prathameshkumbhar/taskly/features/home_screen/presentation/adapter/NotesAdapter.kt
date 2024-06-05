@@ -43,9 +43,9 @@ class NotesAdapter(
         private val binding: ItemNoteBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bindNote(note: NoteTodos, holder: NotesViewHolder) {
-            binding.noteTitle.text = note.userId.toString()
+            binding.noteTitle.text = note.id.toString()
             binding.noteDetail.text = note.todo
-            binding.noteSavedDate.text = note.id.toString()
+            binding.noteSavedDate.text = note.userId.toString()
             binding.noteTitle.isSelected = true
             binding.noteSavedDate.isSelected = true
             binding.noteCard.setCardBackgroundColor(context.resources.getColor(randomColors(),null))

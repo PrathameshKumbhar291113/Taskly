@@ -14,11 +14,11 @@ import javax.inject.Inject
 class GetAllNotesRemotelyUseCase @Inject constructor(
     private val tasklyRemoteRepository: TasklyRemoteRepository
 ) {
-    operator fun invoke(): Flow<NetworkResult<Response<GetAllNotesFromRemoteResponse>>> =
+    operator fun invoke(limit: Int, skip: Int): Flow<NetworkResult<Response<GetAllNotesFromRemoteResponse>>> =
         flow<NetworkResult<Response<GetAllNotesFromRemoteResponse>>> {
             emit(NetworkResult.Loading())
 
-            emit(NetworkResult.Success(data = tasklyRemoteRepository.getNotesFromRemote()))
+            emit(NetworkResult.Success(data = tasklyRemoteRepository.getNotesFromRemote(limit,skip)))
 
         }.catch {
             emit(NetworkResult.Error(it.message.toString()))

@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.prathameshkumbhar.taskly.R
-import com.prathameshkumbhar.taskly.database.NoteTodosParcelable
+import com.prathameshkumbhar.taskly.database.dto.NoteTodosParcelable
 import com.prathameshkumbhar.taskly.database.models.NoteTodos
 import com.prathameshkumbhar.taskly.network.models.GetAllNotesFromRemoteResponse
 import kotlin.random.Random

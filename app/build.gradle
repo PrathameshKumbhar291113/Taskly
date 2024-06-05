@@ -79,5 +79,6 @@ dependencies {
     implementation libs.androidx.activity.ktx
     implementation libs.androidx.fragment.ktx
     implementation libs.splitties
+    implementation libs.circular.progress.bar
 
 }

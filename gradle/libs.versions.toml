@@ -22,6 +22,7 @@ coilVersion = "2.4.0"
 androidxActivityVersion = "1.9.0"
 androidxFragmentVersion = "1.7.1"
 splittiesVersion = "3.0.0"
+circularProgressBarVersion = "3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +51,7 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentVersion" }
 splitties = { module = "com.louiscad.splitties:splitties-fun-pack-android-material-components", version.ref = "splittiesVersion" }
 navigation-safe-args-project-level-dependency = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsVersion" }
+circular-progress-bar = { module = "com.mikhaellopez:circularprogressbar", version.ref = "circularProgressBarVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

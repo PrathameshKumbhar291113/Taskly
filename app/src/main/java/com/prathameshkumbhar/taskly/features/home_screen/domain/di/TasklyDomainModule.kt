@@ -1,9 +1,10 @@
 package com.prathameshkumbhar.taskly.features.home_screen.domain.di
 
-import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyLocalStorageRepository
 import com.prathameshkumbhar.taskly.features.home_screen.domain.repository.TasklyRemoteRepository
+import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.DeleteNoteRemotelyUseCase
 import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.GetAllNotesRemotelyUseCase
-import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.InsertNoteLocallyUseCase
+import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.InsertNoteRemotelyUseCase
+import com.prathameshkumbhar.taskly.features.home_screen.domain.usecase.UpdateNoteRemotelyUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +23,20 @@ object TasklyDomainModule {
 
     @Singleton
     @Provides
-    fun provideInsertNoteLocally(tasklyLocalStorageRepository: TasklyLocalStorageRepository): InsertNoteLocallyUseCase {
-        return InsertNoteLocallyUseCase(tasklyLocalStorageRepository)
+    fun provideInsertNoteRemotely(tasklyRemoteRepository: TasklyRemoteRepository): InsertNoteRemotelyUseCase {
+        return InsertNoteRemotelyUseCase(tasklyRemoteRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpdateNoteRemotely(tasklyRemoteRepository: TasklyRemoteRepository): UpdateNoteRemotelyUseCase {
+        return UpdateNoteRemotelyUseCase(tasklyRemoteRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteNoteRemotely(tasklyRemoteRepository: TasklyRemoteRepository): DeleteNoteRemotelyUseCase {
+        return DeleteNoteRemotelyUseCase(tasklyRemoteRepository)
     }
 
 }
