@@ -27,8 +27,8 @@ class NoteAddActivity : AppCompatActivity() {
         binding = ActivityNoteAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUi()
         setupObservers()
+        setupUi()
 
     }
 
@@ -117,6 +117,12 @@ class NoteAddActivity : AppCompatActivity() {
     private fun setupUi() {
 
         statusBarColor(this@NoteAddActivity)
+
+        if (noteAddViewModel.isUpdate.value == true){
+            binding.title.text = "Update Task"
+        }else{
+            binding.title.text = "Add Task"
+        }
 
         binding.submitButton.setOnClickListener {
             if (!binding.noteTitleEditText.text.isNullOrBlank() ||
